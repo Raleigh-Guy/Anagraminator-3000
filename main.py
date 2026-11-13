@@ -5,16 +5,7 @@ from drafter import *
 
 
 
-@dataclass
-class State:
-    story_contents: str
-    "contents of textbox to be translated"
-    button_pushed: bool
-    "If the mysterious button at the home page has been pushed"
-    button_word: str
-    "What the from the button says"
-    added_translations: list[list[Translation]]
-    "A list of the translations added by the user, such as the blacklist"
+
     
 @dataclass
 class Word:
@@ -34,6 +25,17 @@ class Translation:
     rearanged: bool
     "Wether a word has been changed in translation"
 
+@dataclass
+class State:
+    story_contents: str
+    "contents of textbox to be translated"
+    button_pushed: bool
+    "If the mysterious button at the home page has been pushed"
+    button_word: str
+    "What the from the button says"
+    added_translations: list[list[Translation]]
+    "A list of the translations added by the user, such as the blacklist"
+	
 @dataclass
 class Feature:
     case: str
@@ -108,7 +110,87 @@ def encode_list_data(words: list[str]) -> list[Word]:
     return new_list_of_words
 
 assert_equal(encode_list_data(["", "Joe Dan-forth"]), [Word("", 0, ""), Word("Joe Dan-forth", 11, "ADEFHJNOORT")])
-    
+
+
+#Initiation
+"This is the only code I specifically looked up; How to import the word library"
+import requests
+url = "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words.txt"
+response = requests.get(url)
+data = response.text.splitlines()
+
+
+"""
+Create a list of lists of Words where the index of the list represents the length of the words
+and the words are all in the word dataclasses inside the lists
+"""
+
+#Too large to be in the state dataclass
+Library = [[],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           []
+           ]
+"""
+Assembles using a for loop, but since no words are 0 characters long the first list will consistently be empty
+"""
+for term in data:
+    Term = encode_word_data(term)
+    if Term.length <= 20:
+        Library[Term.length].append(Term)
+    else:
+        Library[21].append(Term)
+
+assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')])
+assert_equal(Library[0], [])
+
+#Too large to be in the state dataclass
+"""
+WorkingLibrary is a list of all words that have already been translated used to significantly speed up
+the translating process if there are many repeat words in a 'story'
+"""
+WorkingLibrary = [[],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           []
+           ]
+
 def find_anagrams(word: Word) -> list[Word]:
     """
     finds all non-auto anagrams of a word, find the unit test below the Library definition
@@ -217,90 +299,6 @@ def blacklist_from_WL(state: State, to_be_blacklisted: str):
             WorkingLibrary[wOrd.length].append(Translation(wOrd, wOrd, False))
             state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
     return to_blacklist(state)
-
-
-
-
-
-#Initiation
-"This is the only code I specifically looked up; How to import the word library"
-import requests
-url = "https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words.txt"
-response = requests.get(url)
-data = response.text.splitlines()
-
-
-"""
-Create a list of lists of Words where the index of the list represents the length of the words
-and the words are all in the word dataclasses inside the lists
-"""
-
-#Too large to be in the state dataclass
-Library = [[],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           []
-           ]
-"""
-Assembles using a for loop, but since no words are 0 characters long the first list will consistently be empty
-"""
-for term in data:
-    Term = encode_word_data(term)
-    if Term.length <= 20:
-        Library[Term.length].append(Term)
-    else:
-        Library[21].append(Term)
-
-assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')])
-assert_equal(Library[0], [])
-
-#Too large to be in the state dataclass
-"""
-WorkingLibrary is a list of all words that have already been translated used to significantly speed up
-the translating process if there are many repeat words in a 'story'
-"""
-WorkingLibrary = [[],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           []
-           ]
-
 
 @route
 def index(state: State) -> Page:
