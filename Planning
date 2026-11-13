@@ -1,0 +1,25 @@
+The plan:
+Intake a big string, turn each word into an anagram mad libs style
+Break down into list of words
+Anagramize the words
+Reconstruct the lists
+
+Constraints:
+Words from original string should be same anagram as other instances of same word
+Anagrams already existing in the original string should not become the same anagram
+
+For each word:
+Check if already used
+If so use the generated anagram
+Otherwise generate a new anagram
+Create a working list of anagrams (not including others that have been used or itself), and randomly assign them to the word
+If no anagrams exist then return itself
+With anagrams make one big beautiful string, include punctuation for flavor
+For this maybe use a split into a string index inside of a for loop to find when and where the punctuation needs to be added?
+Return new_story
+
+Features:
+Anagram a story
+Set words to not anagramize (such as a setting for “for, to, if, when, the, a, etc…”, or also character names)
+View transitions list button
+whatever else we feel like throwing in there
