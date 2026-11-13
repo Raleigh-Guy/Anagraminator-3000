@@ -159,7 +159,7 @@ for term in data:
     else:
         Library[21].append(Term)
 
-assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')])
+
 assert_equal(Library[0], [])
 
 #Too large to be in the state dataclass
@@ -200,6 +200,8 @@ def find_anagrams(word: Word) -> list[Word]:
         if wOrd.alpha == word.alpha and wOrd.name.lower() != word.name.lower():
             new_list.append(wOrd)
     return new_list
+
+assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')])
 
 def find_continuity(word: Word) -> Word:
     """
