@@ -50,7 +50,7 @@ def alphabetize(word: str) -> str:
     organizer = []
     for letter in word:
         if letter not in """
-                        `~!@#$%^&*()_+-={}[]|\:;"'<,>.?
+                        `~!@#$%^&*()_+-={}[]|/:;"'<,>.?
                         """:
             organizer.append(letter.upper())
     """
@@ -79,7 +79,7 @@ def encode_word_data(word: str) -> Word:
     fcount2 = 0
     for letter in word:
         if not letter in """
-		~!@#$%^&*()_+-={}[]|\:;"'<,>.?
+		~!@#$%^&*()_+-={}[]|/:;"'<,>.?
         """:
             char = True
         else: char = False
@@ -173,7 +173,7 @@ def collect_features(story: str) -> list[list[Feature]]:
             check for opening special characters
             """
             if werd[0] in """
-`							~!@#$%^&*()_+-={}[]|\:;"'<,>.?
+`							~!@#$%^&*()_+-={}[]|/:;"'<,>.?
                             """:
                 intro = werd[0]
             else:
@@ -184,7 +184,7 @@ def collect_features(story: str) -> list[list[Feature]]:
             if werd[-3:] == "...":
                 punct = werd[-3:]
             elif werd[-1] in """
-`							~!@#$%^&*()_+-={}[]|\:;"'<,>.?
+`							~!@#$%^&*()_+-={}[]|/:;"'<,>.?
                             """:
                 punct = werd[-1]
             else:
