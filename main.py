@@ -287,9 +287,9 @@ def add_to_WL(state: State, word_from: str, word_to: str):
 
 @route
 def blacklist_from_WL(state: State, to_be_blacklisted: str):
-    """
-    Prevents a word from being anagramized by appending a translation from istelf to itself in the WorkingLibrary
-    """
+	"""
+	Prevents a word from being anagramized by appending a translation from istelf to itself in the WorkingLibrary
+	"""
 	Wwords = []
 	for wOrd in to_be_blacklisted.split(','):
 		if wOrd:
