@@ -99,19 +99,6 @@ assert_equal(encode_word_data("AAAAAAAAAAAAAAAAAAAA"), Word("AAAAAAAAAAAAAAAAAAA
 assert_equal(encode_word_data("AAAAAAAAAAAAAAAAAAAABBBBB"), Word("AAAAAAAAAAAAAAAAAAAABBBBB", 21, "AAAAAAAAAAAAAAAAAAAABBBBB"))
 
 
-def encode_list_data(words: list[str]) -> list[Word]:
-    """
-    from a list of strings, creates a list of Words with valuable data
-    (using different variables than the helper functions)
-    """
-    new_list_of_words = []
-    for each_word in words:
-        new_list_of_words.append(encode_word_data(each_word))
-    return new_list_of_words
-
-assert_equal(encode_list_data(["", "Joe Dan-forth"]), [Word("", 0, ""), Word("Joe Dan-forth", 11, "ADEFHJNOORT")])
-
-
 #Initiation
 "This is the only code I specifically looked up; How to import the word library"
 import requests
@@ -286,8 +273,15 @@ def add_to_WL(state: State, word_from: str, word_to: str):
     """
     word_from = encode_word_data(word_from)
     word_to = encode_word_data(word_to)
-    WorkingLibrary[word_from.length].append(Translation(word_from, word_to, True))
-    state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
+	not_in_WL = True
+	for woRd in WorkingLibrary[word_from.length]:
+		if woRd.original.name.upper() == word_from.name.upper():
+			not_in_WL = False
+			woRd.final = word_to
+			state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
+	if not_in_WL:
+    	WorkingLibrary[word_from.length].append(Translation(word_from, word_to, True))
+    	state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
     return to_set(state)
     
 
@@ -296,8 +290,18 @@ def blacklist_from_WL(state: State, to_be_blacklisted: str):
     """
     Prevents a word from being anagramized by appending a translation from istelf to itself in the WorkingLibrary
     """
-    for wOrd in encode_list_data(to_be_blacklisted.split(',')):
-        if wOrd.name:
+	Wwords = []
+	for wOrd in to_be_blacklisted.split(','):
+		if wOrd:
+			Wwords.append(encode_word_data(wOrd)
+    for wOrd in Wwords:
+		not_in_WL = True
+		for woRd in WorkingLibrary[wOrd.length]:
+			if woRd.original.name.upper() == wOrd.name.upper():
+				woRd.final = wOrd
+				not_in_WL = False
+				state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
+		if not_in_WL:
             WorkingLibrary[wOrd.length].append(Translation(wOrd, wOrd, False))
             state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
     return to_blacklist(state)
