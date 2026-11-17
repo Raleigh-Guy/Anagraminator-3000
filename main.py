@@ -293,7 +293,7 @@ def blacklist_from_WL(state: State, to_be_blacklisted: str):
 	Wwords = []
 	for wOrd in to_be_blacklisted.split(','):
 		if wOrd:
-			Wwords.append(encode_word_data(wOrd)
+			Wwords.append(encode_word_data(wOrd))
 	for wOrd in Wwords:
 		not_in_WL = True
 		for woRd in WorkingLibrary[wOrd.length]:
