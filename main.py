@@ -271,8 +271,8 @@ def add_to_WL(state: State, word_from: str, word_to: str):
     replace all instances of words that match the first string to
     become the second string
     """
-    word_from = encode_word_data(word_from)
-    word_to = encode_word_data(word_to)
+	word_from = encode_word_data(word_from)
+	word_to = encode_word_data(word_to)
 	not_in_WL = True
 	for woRd in WorkingLibrary[word_from.length]:
 		if woRd.original.name.upper() == word_from.name.upper():
@@ -280,9 +280,9 @@ def add_to_WL(state: State, word_from: str, word_to: str):
 			woRd.final = word_to
 			state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
 	if not_in_WL:
-    	WorkingLibrary[word_from.length].append(Translation(word_from, word_to, True))
-    	state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
-    return to_set(state)
+		WorkingLibrary[word_from.length].append(Translation(word_from, word_to, True))
+		state.added_translations[word_from.length].append(Translation(word_from, word_to, True))
+	return to_set(state)
     
 
 @route
@@ -294,7 +294,7 @@ def blacklist_from_WL(state: State, to_be_blacklisted: str):
 	for wOrd in to_be_blacklisted.split(','):
 		if wOrd:
 			Wwords.append(encode_word_data(wOrd)
-    for wOrd in Wwords:
+	for wOrd in Wwords:
 		not_in_WL = True
 		for woRd in WorkingLibrary[wOrd.length]:
 			if woRd.original.name.upper() == wOrd.name.upper():
@@ -302,9 +302,9 @@ def blacklist_from_WL(state: State, to_be_blacklisted: str):
 				not_in_WL = False
 				state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
 		if not_in_WL:
-            WorkingLibrary[wOrd.length].append(Translation(wOrd, wOrd, False))
-            state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
-    return to_blacklist(state)
+			WorkingLibrary[wOrd.length].append(Translation(wOrd, wOrd, False))
+			state.added_translations[wOrd.length].append(Translation(wOrd, wOrd, False))
+	return to_blacklist(state)
 
 @route
 def index(state: State) -> Page:
