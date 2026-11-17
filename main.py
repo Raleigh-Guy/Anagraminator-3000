@@ -266,11 +266,11 @@ def collect_features(story: str) -> list[list[Feature]]:
 
 @route
 def add_to_WL(state: State, word_from: str, word_to: str):
-    """
-    Intakes 2 strings and inserts into the WorkingLibrary a command to
-    replace all instances of words that match the first string to
-    become the second string
-    """
+	"""
+	Intakes 2 strings and inserts into the WorkingLibrary a command to
+	replace all instances of words that match the first string to
+	become the second string
+	"""
 	word_from = encode_word_data(word_from)
 	word_to = encode_word_data(word_to)
 	not_in_WL = True
