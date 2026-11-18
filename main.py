@@ -97,6 +97,7 @@ assert_equal(encode_word_data(""), Word("", 0, ""))
 assert_equal(encode_word_data("Joe Dan-forth"), Word("Joe Dan-forth", 11, "ADEFHJNOORT"))
 assert_equal(encode_word_data("AAAAAAAAAAAAAAAAAAAA"), Word("AAAAAAAAAAAAAAAAAAAA", 20, "AAAAAAAAAAAAAAAAAAAA"))
 assert_equal(encode_word_data("AAAAAAAAAAAAAAAAAAAABBBBB"), Word("AAAAAAAAAAAAAAAAAAAABBBBB", 21, "AAAAAAAAAAAAAAAAAAAABBBBB"))
+assert_equal(encode_word_data("bat-signal"), Word("bat-signal", 9, "aabgilnst"))
 
 
 #Initiation
