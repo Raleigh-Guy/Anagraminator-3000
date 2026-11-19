@@ -193,20 +193,20 @@ def find_anagrams(word: Word) -> tuple[list[Word], bool]:
 			new_list.append(wOrd)
 	return new_list, exists
 
-assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')], True)
+assert_equal(find_anagrams(encode_word_data('coming')), tuple[[encode_word_data('gnomic')], True])
 
 def find_continuity(word: Word) -> Word:
-    """
-    Intakes a Word type and checks if it already has a recorded anagram
-    if it does: output that anagram's Word
-    if it don't: assign an anagram to WorkingLibrary and output that anagram
-    
-    bobm is a wierd intermediate value which represents several pieces of useful information, so it is named to be wierd and thus stand out
-    bobm will exist if there are anagrams OR if the word is in the dictionary
-    if not bobm then the word IS NOT in the dictionary, and then is added to dictionary
-    
-    because of the random element, this function has been tested manually without unit tests.
-    """
+	"""
+	Intakes a Word type and checks if it already has a recorded anagram
+	if it does: output that anagram's Word
+	if it don't: assign an anagram to WorkingLibrary and output that anagram
+	
+	bobm is a wierd intermediate value which represents several pieces of useful information, so it is named to be wierd and thus stand out
+	bobm will exist if there are anagrams OR if the word is in the dictionary
+	if not bobm then the word IS NOT in the dictionary, and then is added to dictionary
+	
+	because of the random element, this function has been tested manually without unit tests.
+	"""
 	for wOrd in WorkingLibrary[word.length]:
 		if wOrd.original.name.upper() == word.name.upper():
 			return wOrd.final
@@ -219,9 +219,9 @@ def find_continuity(word: Word) -> Word:
 		rearanged = False
 	if not exists:
 		Library[word.length].append(word)
-    working2 = Translation(word, working1, rearanged)
-    WorkingLibrary[word.length].append(working2)
-    return working1
+	working2 = Translation(word, working1, rearanged)
+	WorkingLibrary[word.length].append(working2)
+	return working1
 
 def collect_features(story: str) -> list[list[Feature]]:
     """
