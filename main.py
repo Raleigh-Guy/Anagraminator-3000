@@ -179,7 +179,7 @@ WorkingLibrary = [[],
            []
            ]
 
-def find_anagrams(word: Word) -> list[Word], bool:
+def find_anagrams(word: Word) -> tuple[list[Word], bool]:
 	"""
 	finds all non-auto anagrams of a word, find the unit test below the Library definition
 	also creates a tuple in the return statement for tomfoolery purposes
