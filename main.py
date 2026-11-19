@@ -179,17 +179,21 @@ WorkingLibrary = [[],
            []
            ]
 
-def find_anagrams(word: Word) -> list[Word]:
-    """
-    finds all non-auto anagrams of a word, find the unit test below the Library definition
-    """
-    new_list = []
-    for wOrd in Library[word.length]:
-        if wOrd.alpha == word.alpha and wOrd.name.lower() != word.name.lower():
-            new_list.append(wOrd)
-    return new_list
+def find_anagrams(word: Word) -> list[Word], bool:
+	"""
+	finds all non-auto anagrams of a word, find the unit test below the Library definition
+	also creates a tuple in the return statement for tomfoolery purposes
+	"""
+	new_list = []
+	exists = False
+	for wOrd in Library[word.length]:
+		if wOrd.name.lower() == word.name.lower():
+			exists = True
+		if wOrd.alpha == word.alpha and wOrd.name.lower() != word.name.lower():
+			new_list.append(wOrd)
+	return new_list, exists
 
-assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')])
+assert_equal(find_anagrams(encode_word_data('coming')), [encode_word_data('gnomic')], True)
 
 def find_continuity(word: Word) -> Word:
     """
@@ -203,17 +207,18 @@ def find_continuity(word: Word) -> Word:
     
     because of the random element, this function has been tested manually without unit tests.
     """
-    for wOrd in WorkingLibrary[word.length]:
-        if wOrd.original.name.upper() == word.name.upper():
-            return wOrd.final
-    bobm = find_anagrams(word)
-    if bobm:
-        working1 = bobm[random.randint(0, (len(bobm) - 1))]
-        rearanged = True
-    else:
-        working1 = word
-        Library[word.length].append(word)
-        rearanged = False
+	for wOrd in WorkingLibrary[word.length]:
+		if wOrd.original.name.upper() == word.name.upper():
+			return wOrd.final
+	bobm, exists = find_anagrams(word)
+	if bobm:
+		working1 = bobm[random.randint(0, (len(bobm) - 1))]
+		rearanged = True
+		else:
+		working1 = word
+		rearanged = False
+	if not exists:
+		Library[word.length].append(word)
     working2 = Translation(word, working1, rearanged)
     WorkingLibrary[word.length].append(working2)
     return working1
