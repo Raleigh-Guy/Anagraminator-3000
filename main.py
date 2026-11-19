@@ -214,7 +214,7 @@ def find_continuity(word: Word) -> Word:
 	if bobm:
 		working1 = bobm[random.randint(0, (len(bobm) - 1))]
 		rearanged = True
-		else:
+	else:
 		working1 = word
 		rearanged = False
 	if not exists:
