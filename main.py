@@ -431,13 +431,16 @@ def random_translation_button(state: State) -> Page:
     """
     A button in home (index) that returns a random translation from WorkingLibrary (already been used in the 'story')
     and also formats it to be displayed to the user
+
+	has a bias towards longer words
     """
-    state.button_pushed = True
+    grand_list = []
     for length in WorkingLibrary:
         for translation in length:
             if translation.rearanged:
-                if random.randint(1,100) == 100:
-                    state.button_word = translation.original.name + " --> " + translation.final.name
+                for num in range(length):
+                    grand_list.append(translation.original.name + " --> " + translation.final.name)
+    state.button_word = grand_list[random.randint(0, len(grand_list) - 1)]
     return index(state)
 
 assert_equal(index(State("This is where you put your text-to-be-anagramized!", False, "",
