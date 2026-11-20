@@ -493,7 +493,7 @@ assert_equal(to_set(State("This is where you put your text-to-be-anagramized!", 
 
 assert_equal(random_translation_button(State("This is where you put your text-to-be-anagramized!", False, "",
                          [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])), index(
-                             State("This is where you put your text-to-be-anagramized!", True, "",
+                             State("This is where you put your text-to-be-anagramized!", False, "",
                          [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])))
 
 start_server(State("This is where you put your text-to-be-anagramized!", False, "", [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]))
