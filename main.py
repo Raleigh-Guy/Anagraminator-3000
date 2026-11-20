@@ -440,7 +440,7 @@ def random_translation_button(state: State) -> Page:
 		count += 1
 		for translation in length:
 			if translation.rearanged:
-				for num in range(count):
+				for num in range(count ** 2):
 					grand_list.append(translation.original.name + " --> " + translation.final.name)
 	if grand_list:
 		state.button_pushed = True
