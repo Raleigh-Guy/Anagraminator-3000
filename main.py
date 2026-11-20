@@ -428,20 +428,22 @@ def to_set(state: State) -> Page:
 
 @route
 def random_translation_button(state: State) -> Page:
-    """
-    A button in home (index) that returns a random translation from WorkingLibrary (already been used in the 'story')
-    and also formats it to be displayed to the user
-
+	"""
+	A button in home (index) that returns a random translation from WorkingLibrary (already been used in the 'story')
+	and also formats it to be displayed to the user
+	
 	has a bias towards longer words
-    """
-    grand_list = []
-    for length in WorkingLibrary:
-        for translation in length:
-            if translation.rearanged:
-                for num in range(length):
-                    grand_list.append(translation.original.name + " --> " + translation.final.name)
-    state.button_word = grand_list[random.randint(0, len(grand_list) - 1)]
-    return index(state)
+	"""
+	grand_list = []
+	for length in WorkingLibrary:
+		for translation in length:
+			if translation.rearanged:
+				for num in range(length):
+					grand_list.append(translation.original.name + " --> " + translation.final.name)
+	if grand_list:
+		state.button_pushed = True
+		state.button_word = grand_list[random.randint(0, len(grand_list) - 1)]
+	return index(state)
 
 assert_equal(index(State("This is where you put your text-to-be-anagramized!", False, "",
                          [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []])),
