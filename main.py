@@ -435,10 +435,12 @@ def random_translation_button(state: State) -> Page:
 	has a bias towards longer words
 	"""
 	grand_list = []
+	count = -1
 	for length in WorkingLibrary:
+		count += 1
 		for translation in length:
 			if translation.rearanged:
-				for num in range(length):
+				for num in range(count):
 					grand_list.append(translation.original.name + " --> " + translation.final.name)
 	if grand_list:
 		state.button_pushed = True
